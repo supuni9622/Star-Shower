@@ -97,6 +97,7 @@ function Star (x, y, radius, color) {
     }
     this.friction = 0.8
     this.gravity = 0.2
+    this.ttl = 100
   }
 
 // Draw and update funcions for MiniStar
@@ -119,6 +120,7 @@ MiniStar.prototype.update = function() {
 
   this.x += this.velocity.x
   this.y += this.velocity.y
+  this.ttl -= 1
 
 }
 
@@ -151,12 +153,15 @@ function animate() {
     if(star.radius == 0){
       stars.splice(index, 1)
     }
-    
+
    })
 
   // Reference ministars array
-  ministars.forEach(ministar => {
+  ministars.forEach((ministar,index) => {
     ministar.update()
+    if(ministar.ttl == 0){
+      ministars.splice(index, 1)
+    }
   })
 
   // ******Mouse moving text
