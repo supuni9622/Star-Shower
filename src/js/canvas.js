@@ -73,6 +73,41 @@ function Star (x, y, radius, color) {
 
   }
 
+  // Create MiniStar function
+  function MiniStar(x,y,radius,color) {
+
+    // Inherit from Star
+    Star.call(this, x, y, radius, color)
+    this.velocity = {
+      x : 0,
+      y: 3
+    }
+    this.friction = 0.8
+    this.gravity = 1
+  }
+
+// Draw and update funcions for MiniStar
+MiniStar.prototype.draw = function() {
+  c.beginPath()
+  c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
+  c.fillStyle = this.color
+  c.fill()
+  c.closePath()
+}
+
+MiniStar.prototype.update = function() {
+  this.draw()
+
+  if(this.y + this.radius + this.velocity.y > canvas.height){
+    this.velocity.y = -this.velocity.y * this.friction
+  }else {
+    this.velocity.y += this.gravity
+  }
+
+  this.y += this.velocity.y
+
+}
+
 //=======================================================//
 
 // Implementation  -- creating multiple stars using Star blue print
