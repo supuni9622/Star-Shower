@@ -65,12 +65,20 @@ function Star (x, y, radius, color) {
     // When ball hits bottom of the screen
     if(this.y + this.radius + this.velocity.y > canvas.height){
       this.velocity.y = -this.velocity.y * this.friction
+      // Call a ministar function
+      this.shatter()
     }else {
       this.velocity.y += this.gravity
     }
 
     this.y += this.velocity.y
 
+  }
+
+  Star.prototype.shatter = function() {
+    for(let i=0;i<8; i++){
+      // Do something
+    }
   }
 
   // Create MiniStar function
