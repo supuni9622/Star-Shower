@@ -47,11 +47,15 @@ function Star (x, y, radius, color) {
 
   // Create draw and update functions -- this function determine what the circle/star looks like on the screen
  Star.prototype.draw = function() {
+    c.save()
     c.beginPath()
     c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
     c.fillStyle = this.color
+    c.shadowColor = '#e3e1ef'
+    c.shadowBlur = 20
     c.fill()
     c.closePath()
+    c.restore()
   }
 
   // Calls draw function -- prototype functions improve performance rather than normal functions
@@ -103,6 +107,7 @@ function Star (x, y, radius, color) {
 
 // Draw and update funcions for MiniStar
 MiniStar.prototype.draw = function() {
+  c.save()
   c.beginPath()
   c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
   c.fillStyle = `rgba(227,234,239, ${this.opacity})`
@@ -110,6 +115,7 @@ MiniStar.prototype.draw = function() {
   c.shadowBlur = 20
   c.fill()
   c.closePath()
+  c.restore()
 }
 
 MiniStar.prototype.update = function() {
