@@ -41,6 +41,8 @@ function Star (x, y, radius, color) {
       x : 0,
       y: 3
     }
+    this.friction = 0.8
+    this.gravity = 1
   }
 
   // Create draw and update functions -- this function determine what the circle/star looks like on the screen
@@ -62,9 +64,9 @@ function Star (x, y, radius, color) {
     // Create animating through gravitation and add conditions 
     // When ball hits bottom of the screen
     if(this.y + this.radius + this.velocity.y > canvas.height){
-      this.velocity.y = -this.velocity.y * 0.8
+      this.velocity.y = -this.velocity.y * this.friction
     }else {
-      this.velocity.y += 1
+      this.velocity.y += this.gravity
     }
 
     this.y += this.velocity.y
