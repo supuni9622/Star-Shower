@@ -76,6 +76,8 @@ function Star (x, y, radius, color) {
   }
 
   Star.prototype.shatter = function() {
+    // When the ball hits the bottom of the screen it should srink
+    this.radius -= 3
     for(let i=0;i<8; i++){
       ministars.push(new MiniStar(this.x, this.y, 2, 'red'))
     }
@@ -142,8 +144,14 @@ function animate() {
   c.clearRect(0, 0, canvas.width, canvas.height)
 
   // Reference stars array
-  stars.forEach(star => {
+  stars.forEach((star,index) => {
     star.update()
+
+    // If the ball radius == 0 it removes from array
+    if(star.radius == 0){
+      stars.splice(index, 1)
+    }
+    
    })
 
   // Reference ministars array
