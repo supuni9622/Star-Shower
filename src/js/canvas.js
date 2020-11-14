@@ -100,8 +100,8 @@ function Star (x, y, radius, color) {
       y : utils.randomIntFromRange(-15,15)
     }
     this.friction = 0.8
-    this.gravity = 0.2
-    this.ttl = 100
+    this.gravity = 0.4
+    this.ttl = 200
     this.opacity = 1
   }
 
@@ -171,6 +171,11 @@ let backgroundStars
 // creating multiple stars using Star blue print
 let stars
 let ministars
+
+// Create timer to spawing multiple stars
+let ticker = 0
+let randomSpawnRate = 75
+
 function init() {
   // Create containers for ministar and star objects
   stars = []
@@ -225,6 +230,14 @@ function animate() {
       ministars.splice(index, 1)
     }
   })
+
+  ticker++
+
+  if(ticker % randomSpawnRate == 0){
+    const x = Math.random() * canvas.width
+    stars.push(new Star(x, -100 ,18, 'white'))
+    randomSpawnRate = util.randomIntFromRange(75,200)
+  }
 
   // ******Mouse moving text
   //c.fillText('HTML CANVAS BOILERPLATE', mouse.x, mouse.y)
