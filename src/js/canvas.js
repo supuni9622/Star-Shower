@@ -38,11 +38,11 @@ function Star (x, y, radius, color) {
     this.radius = radius
     this.color = color
     this.velocity = {
-      x : 0,
+      x : utils.randomIntFromRange(-4,4),
       y: 3
     }
     this.friction = 0.8
-    this.gravity = 1
+    this.gravity = 1.2
   }
 
   // Create draw and update functions -- this function determine what the circle/star looks like on the screen
@@ -67,7 +67,7 @@ function Star (x, y, radius, color) {
 
     // Create animating through gravitation and add conditions 
     // When ball hits bottom of the screen
-    if(this.y + this.radius + this.velocity.y > canvas.height){
+    if(this.y + this.radius + this.velocity.y > canvas.height - groundHeight){
       this.velocity.y = -this.velocity.y * this.friction
       // Call a ministar function
       this.shatter()
@@ -75,6 +75,13 @@ function Star (x, y, radius, color) {
       this.velocity.y += this.gravity
     }
 
+    // Hits side screen 
+    if(this.x + this.radius + this.velocity.x > canvas.width || this.x - this.radius <= 0){
+      this.velocity.x = -this.velocity.x * this.friction
+      this.shatter()
+    }
+
+    this.x += this.velocity.x
     this.y += this.velocity.y
 
   }
@@ -121,7 +128,7 @@ MiniStar.prototype.draw = function() {
 MiniStar.prototype.update = function() {
   this.draw()
 
-  if(this.y + this.radius + this.velocity.y > canvas.height){
+  if(this.y + this.radius + this.velocity.y > canvas.height - groundHeight){
     this.velocity.y = -this.velocity.y * this.friction
   }else {
     this.velocity.y += this.gravity
@@ -175,6 +182,7 @@ let ministars
 // Create timer to spawing multiple stars
 let ticker = 0
 let randomSpawnRate = 75
+let groundHeight = 100
 
 function init() {
   // Create containers for ministar and star objects
@@ -211,6 +219,8 @@ function animate() {
   createMountainRange(1, canvas.height - 50, '#384551')
   createMountainRange(2, canvas.height - 100, '#283843')
   createMountainRange(3, canvas.height - 300, '#26333e')
+  c.fillStyle = '#182028'
+  c.fillRect(0, canvas.height - groundHeight, canvas.width, groundHeight)
 
   // Reference stars array
   stars.forEach((star,index) => {
@@ -234,9 +244,10 @@ function animate() {
   ticker++
 
   if(ticker % randomSpawnRate == 0){
-    const x = Math.random() * canvas.width
-    stars.push(new Star(x, -100 ,18, 'white'))
-    randomSpawnRate = util.randomIntFromRange(75,200)
+    const radius = 18
+    const x = Math.max(Math.random() * canvas.width - radius)
+    stars.push(new Star(x, -100 ,radius, 'white'))
+    randomSpawnRate = utils.randomIntFromRange(75,200)
   }
 
   // ******Mouse moving text
