@@ -87,12 +87,14 @@ function Star (x, y, radius, color) {
 
     // Inherit from Star
     Star.call(this, x, y, radius, color)
+
+    // Randomise the x,y coordinates
     this.velocity = {
-      x : 0,
-      y: 3
+      x : utils.randomIntFromRange(-5,5),
+      y : utils.randomIntFromRange(-15,15)
     }
     this.friction = 0.8
-    this.gravity = 1
+    this.gravity = 0.2
   }
 
 // Draw and update funcions for MiniStar
@@ -113,6 +115,7 @@ MiniStar.prototype.update = function() {
     this.velocity.y += this.gravity
   }
 
+  this.x += this.velocity.x
   this.y += this.velocity.y
 
 }
