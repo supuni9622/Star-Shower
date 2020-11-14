@@ -1,3 +1,5 @@
+// These are the utility functions allow us to do canvas pieces
+
 function randomIntFromRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
