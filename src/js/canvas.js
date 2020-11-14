@@ -61,8 +61,8 @@ function Star (x, y, radius, color) {
 
     // Create animating through gravitation and add conditions 
     // When ball hits bottom of the screen
-    if(this.y + this.radius > canvas.height){
-      this.velocity.y = -this.velocity.y
+    if(this.y + this.radius + this.velocity.y > canvas.height){
+      this.velocity.y = -this.velocity.y * 0.8
     }else {
       this.velocity.y += 1
     }
