@@ -132,12 +132,14 @@ MiniStar.prototype.update = function() {
 // Create mountain range function for create mountain dynamically
 function createMountainRange(mountainAmount, height, color) {
     for(let i =0; i< mountainAmount; i++){
+
+      const mountainWidth = canvas.width / mountainAmount
       c.beginPath()
       // Create mountain using rectrangles
-      c.moveTo(0, canvas.height)
-      c.lineTo(canvas.width, canvas.height)
-      c.lineTo(canvas.width/2 , canvas.height - height)
-      c.lineTo(0, canvas.height)
+      c.moveTo(i * mountainWidth, canvas.height)
+      c.lineTo(i * mountainWidth + mountainWidth, canvas.height)
+      c.lineTo(i * mountainWidth + mountainWidth /2 , canvas.height - height)
+      c.lineTo(i * mountainWidth, canvas.height)
       c.fillStyle = color
       c.fill()
       c.closePath()
@@ -177,8 +179,10 @@ function animate() {
   c.fillRect(0, 0, canvas.width, canvas.height)
 
   //Call mountain range function
-  createMountainRange(1, 100, 'white')
-
+  // First call arguments in the behind 
+  createMountainRange(1, 400, 'white')
+  createMountainRange(2, 200, 'green')
+  
   // Reference stars array
   stars.forEach((star,index) => {
     star.update()
