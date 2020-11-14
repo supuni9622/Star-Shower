@@ -79,7 +79,7 @@ function Star (x, y, radius, color) {
     // When the ball hits the bottom of the screen it should srink
     this.radius -= 3
     for(let i=0;i<8; i++){
-      ministars.push(new MiniStar(this.x, this.y, 2, 'red'))
+      ministars.push(new MiniStar(this.x, this.y, 2))
     }
     console.log(ministars)
   }
@@ -98,13 +98,14 @@ function Star (x, y, radius, color) {
     this.friction = 0.8
     this.gravity = 0.2
     this.ttl = 100
+    this.opacity = 1
   }
 
 // Draw and update funcions for MiniStar
 MiniStar.prototype.draw = function() {
   c.beginPath()
   c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
-  c.fillStyle = this.color
+  c.fillStyle = `rgba(255,0,0, ${this.opacity})`
   c.fill()
   c.closePath()
 }
@@ -120,7 +121,9 @@ MiniStar.prototype.update = function() {
 
   this.x += this.velocity.x
   this.y += this.velocity.y
+  // Time to leave --> ttl
   this.ttl -= 1
+  this.opacity -= 1 / this.ttl
 
 }
 
