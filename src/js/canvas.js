@@ -6,24 +6,10 @@ const c = canvas.getContext('2d')
 canvas.width = innerWidth
 canvas.height = innerHeight
 
-// *****Since we don't need mouse moving events for this star shower project
-// const mouse = {
-//   x: innerWidth / 2,
-//   y: innerHeight / 2
-// }
-
-// ******Event Listeners -- don't need for this
-// addEventListener('mousemove', (event) => {
-//   mouse.x = event.clientX
-//   mouse.y = event.clientY
-// })
-
-
 const colors = ['#2185C5', '#7ECEFD', '#FFF6E5', '#FF7F66']
 
 addEventListener('resize', () => {
-  // First need to declare width and height for our canvas. Here we get Width and height of our browser
-  // Canvas coordinates starts from top- left coner of the browser (0,0)
+
   canvas.width = innerWidth
   canvas.height = innerHeight
 
@@ -31,7 +17,6 @@ addEventListener('resize', () => {
 })
 
 //================== Create blue print for star ===================
-// Objects - Creating Star
 function Star (x, y, radius, color) {
     this.x = x
     this.y = y
@@ -58,24 +43,16 @@ function Star (x, y, radius, color) {
     c.restore()
   }
 
-  // Calls draw function -- prototype functions improve performance rather than normal functions
-  // When we have 1000s of stars if we declare normal draw function inside star function then it create 1000s of draw functions for all stars
-  // Using prototype : draw functions created only once and star function reference it as needed
-
  Star.prototype.update = function() {
     this.draw()
 
-    // Create animating through gravitation and add conditions 
-    // When ball hits bottom of the screen
     if(this.y + this.radius + this.velocity.y > canvas.height - groundHeight){
       this.velocity.y = -this.velocity.y * this.friction
-      // Call a ministar function
       this.shatter()
     }else {
       this.velocity.y += this.gravity
     }
 
-    // Hits side screen 
     if(this.x + this.radius + this.velocity.x > canvas.width || this.x - this.radius <= 0){
       this.velocity.x = -this.velocity.x * this.friction
       this.shatter()
@@ -87,7 +64,7 @@ function Star (x, y, radius, color) {
   }
 
   Star.prototype.shatter = function() {
-    // When the ball hits the bottom of the screen it should srink
+
     this.radius -= 3
     for(let i=0;i<8; i++){
       ministars.push(new MiniStar(this.x, this.y, 2))
@@ -98,10 +75,8 @@ function Star (x, y, radius, color) {
   // Create MiniStar function
   function MiniStar(x,y,radius,color) {
 
-    // Inherit from Star
     Star.call(this, x, y, radius, color)
 
-    // Randomise the x,y coordinates
     this.velocity = {
       x : utils.randomIntFromRange(-5,5),
       y : utils.randomIntFromRange(-15,15)
@@ -142,8 +117,6 @@ MiniStar.prototype.update = function() {
 
 }
 
-//=======================================================
-
 // Create mountain range function for create mountain dynamically
 function createMountainRange(mountainAmount, height, color) {
     for(let i =0; i< mountainAmount; i++){
@@ -161,15 +134,11 @@ function createMountainRange(mountainAmount, height, color) {
     }
 }
 
-//======================================================= 
-
 // Implementation 
 
 // Create Background object
 const backgroundGradient = c.createLinearGradient(0, 0, 0, canvas.height)
-//Start color of the background
 backgroundGradient.addColorStop(0, '#171e26')
-//End color of the background
 backgroundGradient.addColorStop(1, '#3f586b')
 
 // Create background stars
@@ -185,13 +154,12 @@ let randomSpawnRate = 75
 let groundHeight = 100
 
 function init() {
-  // Create containers for ministar and star objects
+
   stars = []
   ministars = []
   backgroundStars = []
 
   for (let i = 0; i < 1; i++) {
-    // Creating stars by passing arguments
      stars.push(new Star(canvas.width/2, 30, 30, '#e3eaef'))
   }
 
@@ -222,18 +190,15 @@ function animate() {
   c.fillStyle = '#182028'
   c.fillRect(0, canvas.height - groundHeight, canvas.width, groundHeight)
 
-  // Reference stars array
   stars.forEach((star,index) => {
     star.update()
 
-    // If the ball radius == 0 it removes from array
     if(star.radius == 0){
       stars.splice(index, 1)
     }
 
    })
 
-  // Reference ministars array
   ministars.forEach((ministar,index) => {
     ministar.update()
     if(ministar.ttl == 0){
@@ -249,9 +214,6 @@ function animate() {
     stars.push(new Star(x, -100 ,radius, 'white'))
     randomSpawnRate = utils.randomIntFromRange(75,200)
   }
-
-  // ******Mouse moving text
-  //c.fillText('HTML CANVAS BOILERPLATE', mouse.x, mouse.y)
   
 }
 
