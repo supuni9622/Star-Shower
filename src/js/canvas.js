@@ -189,12 +189,16 @@ function animate() {
   c.fillStyle = backgroundGradient
   c.fillRect(0, 0, canvas.width, canvas.height)
 
+  backgroundStars.forEach(backgroundStar => {
+    backgroundStar.draw()
+  })
+
   //Call mountain range function
   // First call arguments in the behind 
   createMountainRange(1, canvas.height - 50, '#384551')
   createMountainRange(2, canvas.height - 100, '#283843')
   createMountainRange(3, canvas.height - 300, '#26333e')
-  
+
   // Reference stars array
   stars.forEach((star,index) => {
     star.update()
@@ -212,10 +216,6 @@ function animate() {
     if(ministar.ttl == 0){
       ministars.splice(index, 1)
     }
-  })
-
-  backgroundStars.forEach(backgroundStar => {
-    backgroundStar.draw()
   })
 
   // ******Mouse moving text
