@@ -157,6 +157,9 @@ backgroundGradient.addColorStop(0, '#171e26')
 //End color of the background
 backgroundGradient.addColorStop(1, '#3f586b')
 
+// Create background stars
+let backgroundStars
+
 // creating multiple stars using Star blue print
 let stars
 let ministars
@@ -164,10 +167,19 @@ function init() {
   // Create containers for ministar and star objects
   stars = []
   ministars = []
+  backgroundStars = []
 
   for (let i = 0; i < 1; i++) {
     // Creating stars by passing arguments
      stars.push(new Star(canvas.width/2, 30, 30, 'blue'))
+  }
+
+  for (let i =0; i< 150; i++){
+
+    const x = Math.random() * canvas.width
+    const y = Math.random() * canvas.height
+    const radius = Math.random() * 3
+    backgroundStars.push(new Star(x, y, radius, 'white'))
   }
 }
 
@@ -200,6 +212,10 @@ function animate() {
     if(ministar.ttl == 0){
       ministars.splice(index, 1)
     }
+  })
+
+  backgroundStars.forEach(backgroundStar => {
+    backgroundStar.draw()
   })
 
   // ******Mouse moving text
