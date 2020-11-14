@@ -30,7 +30,7 @@ addEventListener('resize', () => {
   init()
 })
 
-//================== Create blu print for star ===================
+//================== Create blue print for star ===================
 // Objects - Creating Star
 function Star (x, y, radius, color) {
     this.x = x
@@ -129,7 +129,16 @@ MiniStar.prototype.update = function() {
 
 //=======================================================//
 
-// Implementation  -- creating multiple stars using Star blue print
+// Implementation 
+
+// Create Background object
+const backgroundGradient = c.createLinearGradient(0, 0, 0, canvas.height)
+//Start color of the background
+backgroundGradient.addColorStop(0, '#171e26')
+//End color of the background
+backgroundGradient.addColorStop(1, '#3f586b')
+
+// creating multiple stars using Star blue print
 let stars
 let ministars
 function init() {
@@ -146,7 +155,8 @@ function init() {
 // Animation Loop
 function animate() {
   requestAnimationFrame(animate)
-  c.clearRect(0, 0, canvas.width, canvas.height)
+  c.fillStyle = backgroundGradient
+  c.fillRect(0, 0, canvas.width, canvas.height)
 
   // Reference stars array
   stars.forEach((star,index) => {
