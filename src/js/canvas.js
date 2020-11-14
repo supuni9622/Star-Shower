@@ -63,6 +63,8 @@ function Star (x, y, radius, color) {
     // When ball hits bottom of the screen
     if(this.y + this.radius > canvas.height){
       this.velocity.y = -this.velocity.y
+    }else {
+      this.velocity.y += 1
     }
 
     this.y += this.velocity.y
