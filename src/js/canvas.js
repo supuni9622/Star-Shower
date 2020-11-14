@@ -127,7 +127,25 @@ MiniStar.prototype.update = function() {
 
 }
 
-//=======================================================//
+//=======================================================
+
+// Create mountain range function for create mountain dynamically
+function createMountainRange(mountainAmount, height, color) {
+    for(let i =0; i< mountainAmount; i++){
+      c.beginPath()
+      // Create mountain using rectrangles
+      c.moveTo(0, canvas.height)
+      c.lineTo(canvas.width, canvas.height)
+      c.lineTo(canvas.width/2 , canvas.height - height)
+      c.lineTo(0, canvas.height)
+      c.fillStyle = color
+      c.fill()
+      c.closePath()
+    }
+}
+
+//======================================================= 
+
 
 // Implementation 
 
@@ -157,6 +175,9 @@ function animate() {
   requestAnimationFrame(animate)
   c.fillStyle = backgroundGradient
   c.fillRect(0, 0, canvas.width, canvas.height)
+
+  //Call mountain range function
+  createMountainRange(1, 100, 'white')
 
   // Reference stars array
   stars.forEach((star,index) => {
