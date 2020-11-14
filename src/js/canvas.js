@@ -77,8 +77,9 @@ function Star (x, y, radius, color) {
 
   Star.prototype.shatter = function() {
     for(let i=0;i<8; i++){
-      // Do something
+      ministars.push(new MiniStar(this.x, this.y, 2, 'red'))
     }
+    console.log(ministars)
   }
 
   // Create MiniStar function
@@ -120,8 +121,11 @@ MiniStar.prototype.update = function() {
 
 // Implementation  -- creating multiple stars using Star blue print
 let stars
+let ministars
 function init() {
+  // Create containers for ministar and star objects
   stars = []
+  ministars = []
 
   for (let i = 0; i < 1; i++) {
     // Creating stars by passing arguments
@@ -134,9 +138,15 @@ function animate() {
   requestAnimationFrame(animate)
   c.clearRect(0, 0, canvas.width, canvas.height)
 
+  // Reference stars array
   stars.forEach(star => {
     star.update()
    })
+
+  // Reference ministars array
+  ministars.forEach(ministar => {
+    ministar.update()
+  })
 
   // ******Mouse moving text
   //c.fillText('HTML CANVAS BOILERPLATE', mouse.x, mouse.y)
